@@ -1,0 +1,69 @@
+what did we learn today?
+
+relearned:
+
+hash maps (dicts):
+
+phonebook = {'bob':333, 'sue':444} < create
+phonebook.pop('bob') < delete
+
+functions and function parameters:
+
+def myFunc(one):
+    print(one)
+    return 22
+
+classes:
+
+class MyClass:
+    variableName = "bob"
+    def classFunc(arg):
+        return variableName + arg
+
+lists:
+
+names = ['bob', 'sue']
+names.append('joe')
+del s[i]
+names.clear()
+names.insert(index, var)
+names.pop([i])
+
+loops:
+
+for x in range(5):
+    if x+y<5:
+        break
+    print("hi")
+else:
+    print("not printed because of break")
+
+while <condition>:
+
+list comprehensions:
+
+words = ['abc', 'def', 'fghi']
+shortWords = [word for word in words if len(word) < 4]
+
+generators (using yield):
+
+def fibonacci():
+    a, b = 1, 1
+    yield a+b
+    a, b = b, a+b
+
+for n in fibonacci():
+    if n > 20:
+        break
+    print(n)
+
+exceptions:
+
+try:
+    thing to do
+except Exception as e:
+    print(e)
+
+numpy/pandas
+regexes:
+sets 
