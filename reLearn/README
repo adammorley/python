@@ -1,4 +1,4 @@
-what did we learn today?
+notes on python refresh
 
 relearned:
 
@@ -67,3 +67,11 @@ except Exception as e:
 numpy/pandas
 regexes:
 sets 
+
+decorators: 
+
+I don't get it.  Seems like a way to make code complex enough to be hard to skill up on.  todo: find a better decorator tutorial that is concise.
+
+map/filter/reduce:
+
+map function allows for shorter version of the for loop concept.  zip pairs up across iterables (eg two sets paired together as they go. filter allows to pass iterables through a filter function.
