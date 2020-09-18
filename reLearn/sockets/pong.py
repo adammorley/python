@@ -1,17 +1,29 @@
 #!/usr/bin/python3
 
+import json
 import socket
 
 addr = ('localhost', 7777)
 ss = socket.create_server(addr)
 ss.listen()
-conn, addr = ss.accept()
-with conn:
-    print('connected', addr)
-    data = conn.recv(1024)
-    print('received:', data)
-    # total buffer overflow in my head b/c c!
-    if data.decode().rstrip() == 'PING':
-        conn.send('PONG'.encode())
-    else:
-        conn.send('FAIL'.encode())
+while True:
+    conn, addr = ss.accept()
+    with conn:
+        print('connected', addr)
+        data = conn.recv(1024)
+        print('received:', data)
+        try:
+            b = data.decode()
+            msg = json.loads(b)
+            if msg['ping']:
+                conn.send(
+                    json.dumps(
+                        {'pong':True}
+                    ).encode()
+                )
+        except:
+            conn.send(
+                json.dumps(
+                    {'fail':True}
+                ).encode()
+            )
