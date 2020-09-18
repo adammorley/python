@@ -74,4 +74,19 @@ I don't get it.  Seems like a way to make code complex enough to be hard to skil
 
 map/filter/reduce:
 
-map function allows for shorter version of the for loop concept.  zip pairs up across iterables (eg two sets paired together as they go. filter allows to pass iterables through a filter function.
+map function allows for shorter version of the for loop concept.  zip pairs up across iterables (eg two sets paired together as they go. filter allows to pass iterables through a filter function.  and reduce just applies a function across an iterable.  kind of like a sum over array values, but you can also apply more logic via functions
+
+lambda:
+
+anonymous function:
+
+f = lambda x: x**2 
+
+same as
+
+def f(x):
+    return x**2
+
+sockets:
+
+create_connection/create_server, ping pong and data encoding challenge.
