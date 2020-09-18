@@ -90,3 +90,7 @@ def f(x):
 sockets:
 
 create_connection/create_server, ping pong and data encoding challenge.
+
+memoization:
+
+use lru_cache from functools, cpython impl
