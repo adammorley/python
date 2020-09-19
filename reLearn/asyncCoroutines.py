@@ -56,9 +56,36 @@ async def poolExec():
         print('custom pool cpu bound {}'.format(r))
     print('after')
 
-# do timeout stuff, also futures.  eg pass back a hashmap via a future and handle timeout via exception or somesuch
-# also do task creation of multiple things and then go get the results after
+import json
 
-asyncio.run(main(), debug=True)
+async def pinger():
+    r, w = await asyncio.open_connection('localhost', 7777)
+    w.write(json.dumps({'ping':True}).encode())
+    await w.drain()
+    d = await r.read(100)
+    j = json.loads( d.decode() )
+    print('received: {}'.format(j))
+    w.close()
+    await w.wait_closed()
+    return j
+
+async def execer():
+    t = []
+    for i in range(30):
+        t.append(pinger())
+    r = await asyncio.gather(*t)
+    print('type: {} of object: {}'.format(type(r), r))
+    if isinstance(r, type([])):
+        print('type of first elem: {}'.format(type(r[0])))
+
+# many at once execution
+asyncio.run(execer(), debug=True)
+
+# basic task exec
+#asyncio.run(main(), debug=True)
+
+# timeouts
 asyncio.run(timeoutTest(), debug=True)
-asyncio.run(poolExec(), debug=True)
+
+# different executors for blocking calls
+#asyncio.run(poolExec(), debug=True)
