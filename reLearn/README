@@ -94,3 +94,7 @@ create_connection/create_server, ping pong and data encoding challenge.
 memoization:
 
 use lru_cache from functools, cpython impl
+
+list comprehension vs. map vs. generators
+
+they do similar things, and map is more concise (and yields an iterable vs a list).  using yield instead is likely for more complicated functionality, as it is a little more work

@@ -10,5 +10,7 @@ def fib(num):
         return 1
     return fib(num-1) + fib(num-2)
 
-print(fib(35))
+print(fib(3))
+print(fib(5))
+print(fib(25))
 print(fib(42))
