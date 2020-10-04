@@ -48,3 +48,56 @@ new = MergeSort(nums)
 print('next')
 print(new)
 print(new[-2])
+
+def maxNum(nums, n):
+    maxes = []
+    for i in nums:
+        if i not in maxes and len(maxes) < n:
+            maxes.append(i)
+        else:
+            for j in range(0, len(maxes)):
+                if i > maxes[j]:
+                    maxes[j] = i
+    m = sorted(maxes)
+    print(m)
+    return m[-n]
+
+n = 3
+nums = [3,2,1]
+print(maxNum(nums, n))
+n = 2
+nums = [1,2]
+print(maxNum(nums, n))
+n = 3
+nums = [2,2,3,1]
+print(maxNum(nums, n))
+
+# without using append or pop
+class Stack:
+    container: list
+    def __init__(self):
+        self.container = []
+    def push(self, obj):
+        last = len(self.container)
+        self.container.append(None) # can't figure out how to not use this
+        self.container[last] = obj
+    def pop(self):
+        last = len(self.container)
+        t = self.container[last-1]
+        del self.container[last-1]
+        return t
+    def top(self):
+        last = len(self.container)
+        t = self.container[last-1]
+        return t
+    def min(self):
+        if len(self.container) == 1:
+            return self.container[0]
+        min = self.container[0]
+        for i in range(0, len(self.container)):
+            if self.container[i] < min:
+                min = self.container[i]
+        return min
+
+
+# need a test
