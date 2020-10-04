@@ -98,3 +98,20 @@ use lru_cache from functools, cpython impl
 list comprehension vs. map vs. generators
 
 they do similar things, and map is more concise (and yields an iterable vs a list).  using yield instead is likely for more complicated functionality, as it is a little more work
+
+sorting hash maps:
+
+    sort = sorted(count.items(), key=lambda a: a[1], reverse=True)
+
+on closures/yield:
+
+you can create a closure like this:
+
+def func():
+    def func2(obj):
+        yield from func2(obj.sub0)
+        yield obj.param
+        yield from func2(obj.sub1)
+    return func2
+
+to allow for yielding from a function, not just the val.  this is useful for example in tree traversals
