@@ -23,7 +23,6 @@ class TreeNode:
         else:
             return 1
 
-from collections import deque
 class Tree:
     root: TreeNode
     def __init__(self, root=None):
@@ -48,6 +47,7 @@ assert t.balanced()
 
 import itertools
 from typing import Iterator
+from collections import deque
 class TreeIterator:
     def __init__(self, root: TreeNode):
         def inorder_traverse(node) -> Iterator[int]:
@@ -58,13 +58,31 @@ class TreeIterator:
             yield from inorder_traverse(node.right)
 
         self.inorder = inorder_traverse(root)
-        def levelorder_traverse(node) -> Iterator[int]:
+        def preorder_traverse(node) -> Iterator[int]:
             if not node:
                 return
             yield node.val
-            yield from levelorder_traverse(node.left)
-            yield from levelorder_traverse(node.right)
-        self.levelorder = levelorder_traverse(root)
+            yield from preorder_traverse(node.left)
+            yield from preorder_traverse(node.right)
+        self.preorder = preorder_traverse(root)
+        def postorder_traverse(node) -> Iterator[int]:
+            if not node:
+                return
+            yield from postorder_traverse(node.left)
+            yield from postorder_traverse(node.right)
+            yield node.val
+        self.postorder = postorder_traverse(root)
+        def levelorder_traverse() -> Iterator[int]:
+            self.q = deque()
+            self.q.append(root)
+            while len(self.q) != 0:
+                node = self.q.popleft()
+                yield node.val
+                if node.left is not None:
+                    self.q.append(node.left)
+                if node.right is not None:
+                    self.q.append(node.right)
+        self.levelorder = levelorder_traverse()
     def baseNext(self, generator) -> int:
         assert generator is not None
         try:
@@ -73,7 +91,7 @@ class TreeIterator:
             return
     def baseHasNext(self, generator) -> bool:
         assert generator is not None
-        u, c = itertools.tee(generator)
+        upostorder_traverse, c = itertools.tee(generator)
         generator = u
         try:
             next(c)
@@ -85,6 +103,16 @@ class InorderTreeIterator(TreeIterator):
         return self.baseNext(self.inorder)
     def hasNext(self) -> bool:
         return self.baseHasNext(self.inorder)
+class PreorderTreeIterator(TreeIterator):
+    def next(self) -> int:
+        return self.baseNext(self.preorder)
+    def hasNext(self) -> bool:
+        return self.baseHasNext(self.preorder)
+class PostorderTreeIterator(TreeIterator):
+    def next(self) -> int:
+        return self.baseNext(self.postorder)
+    def hasNext(self) -> bool:
+        return self.baseHasNext(self.postorder)
 class LevelorderTreeIterator(TreeIterator):
     def next(self) -> int:
         return self.baseNext(self.levelorder)
@@ -98,3 +126,6 @@ print(iti.next())
 lti = LevelorderTreeIterator(t.root)
 print(lti.next())
 print(lti.next())
+print(lti.next())
+
+
