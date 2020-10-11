@@ -38,5 +38,5 @@ def find_distinct_pairs(nums: list, k: int) -> int:
 
 nums = [6,1,4,7,2,6,1,2,9,4]
 k = 2
-print(find_distinct_pairs(nums, k))
+assert 3 == find_distinct_pairs(nums, k)
 
